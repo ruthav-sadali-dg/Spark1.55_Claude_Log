@@ -1,0 +1,2 @@
+{"type":"session_start","session_id":"20261113-002","timestamp":"2026-11-13T11:05:47-07:00","cwd":"\\\\wsl.localhost\\Ubuntu-24.04\\home\\sadalir\\crusoe.mdc.scada","task":"Explain how to connect to a VESDA unit using Xtralis VSC."}
+{"type":"lookup","step":1,"timestamp":"2026-11-13T11:05:50-07:00","tool":"Read (prior context)","command":"services/sites/snyder/io-01/config/devices/connections/construction/modbus.json","purpose":"Find site VESDA network details","expected":"VESDA device entry","output":"MDC-01-Vesda, Modbus TCP, hostname 10.12.1.91, zeroBasedAddressing false"}
