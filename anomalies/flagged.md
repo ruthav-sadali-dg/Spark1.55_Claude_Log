@@ -25,3 +25,15 @@ Steps where the actual result deviated from the stated intent.
 - **Intended:** View drawing PDF E-340-01366 pages directly.
 - **Actual:** `pdftoppm is not installed` (poppler-utils missing).
 - **Resolution:** Created a temp venv (`python3 -m venv /tmp/pdfvenv && /tmp/pdfvenv/bin/pip install pypdf pymupdf`) and used PyMuPDF to extract text and render each page to PNG. To fix permanently: `sudo apt install poppler-utils`.
+
+## 20261113-001 – step 1 – 2026-11-13
+- **Directory:** \\wsl.localhost\Ubuntu-24.04\home\sadalir\crusoe.mdc.scada
+- **Intended:** Run `find` with quoted glob patterns via `wsl -d Ubuntu-24.04 -- bash -c '...'` from PowerShell.
+- **Actual:** `zsh:1: no matches found` — PowerShell dropped the inner quotes and the WSL login shell (zsh) expanded the globs.
+- **Resolution:** Put the commands in a `.sh` file in the scratchpad and ran `wsl -d Ubuntu-24.04 -- bash /mnt/c/.../script.sh`.
+
+## 20261113-001 – step 4 – 2026-11-13
+- **Directory:** \\wsl.localhost\Ubuntu-24.04\home\sadalir\crusoe.mdc.scada
+- **Intended:** Pipe the output of a PowerShell `for` loop into `Select-Object`.
+- **Actual:** `ParserError: An empty pipe element is not allowed.` (PS 5.1 can't pipe directly from a `for` statement.)
+- **Resolution:** Used a small `python3 -I` script to walk the UDT JSON instead.
