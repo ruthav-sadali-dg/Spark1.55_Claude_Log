@@ -37,3 +37,15 @@ Steps where the actual result deviated from the stated intent.
 - **Intended:** Pipe the output of a PowerShell `for` loop into `Select-Object`.
 - **Actual:** `ParserError: An empty pipe element is not allowed.` (PS 5.1 can't pipe directly from a `for` statement.)
 - **Resolution:** Used a small `python3 -I` script to walk the UDT JSON instead.
+
+## 20261113-003 – step 1 – 2026-11-13
+- **Directory:** \\wsl.localhost\Ubuntu-24.04\home\sadalir\crusoe.mdc.scada
+- **Intended:** Read `CLSS_Gateway_User_Manual.pdf` with the Read tool.
+- **Actual:** `pdftoppm is not installed`. There was also no pdftotext or pypdf in WSL, and Windows `python` is only the Microsoft Store alias.
+- **Resolution:** Made a throwaway venv at `/tmp/pdfvenv-claude` in WSL, installed `pypdf`, and extracted the text to the scratchpad.
+
+## 20261113-003 – step 2 – 2026-11-13
+- **Directory:** \\wsl.localhost\Ubuntu-24.04\home\sadalir\crusoe.mdc.scada
+- **Intended:** Run inline Python through `wsl -- bash -c "..."` from PowerShell.
+- **Actual:** PowerShell ParserError, because it parsed the commas and parentheses inside the double-quoted string.
+- **Resolution:** Put the code in scratchpad `pdf.sh` / `pdf2txt.py` and ran them through `wsl -- bash <script>`. Lesson: always use script files for anything beyond a trivial one-liner.
