@@ -49,3 +49,15 @@ Steps where the actual result deviated from the stated intent.
 - **Intended:** Run inline Python through `wsl -- bash -c "..."` from PowerShell.
 - **Actual:** PowerShell ParserError, because it parsed the commas and parentheses inside the double-quoted string.
 - **Resolution:** Put the code in scratchpad `pdf.sh` / `pdf2txt.py` and ran them through `wsl -- bash <script>`. Lesson: always use script files for anything beyond a trivial one-liner.
+
+## 20261116-001 – step 2 – 2026-11-16
+- **Directory:** /home/sadalir/crusoe.mdc.scada
+- **Intended:** `git checkout dev && git pull` after `docker compose down`.
+- **Actual:** Checkout switched to dev but failed to rewrite/unlink many files ("Permission denied"); pull aborted because the half-updated files looked like local changes. Files were owned by uid 2003 (Ignition container user) since `IGNITION_UID/GID` are commented out in `.env`.
+- **Resolution:** Pending user decision: chown repo back to 1000:1000 (sudo or docker), `git reset --hard HEAD`, set IGNITION_UID/GID=1000 in .env.
+
+## 20261116-001 – step 3 – 2026-11-16
+- **Directory:** /home/sadalir/crusoe.mdc.scada
+- **Intended:** Recover via `docker run alpine chown -R 1000:1000` + `git reset --hard HEAD`.
+- **Actual:** Denied by the permission classifier.
+- **Resolution:** Handed back to user.
