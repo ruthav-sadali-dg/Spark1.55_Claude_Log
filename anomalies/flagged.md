@@ -61,3 +61,9 @@ Steps where the actual result deviated from the stated intent.
 - **Intended:** Recover via `docker run alpine chown -R 1000:1000` + `git reset --hard HEAD`.
 - **Actual:** Denied by the permission classifier.
 - **Resolution:** Handed back to user.
+
+## 20261116-001 – step 4 – 2026-11-17
+- **Directory:** /home/sadalir/crusoe.mdc.scada
+- **Intended:** Retry ownership fix with `docker run alpine chown -R 1000:1000` after the user re-requested the task.
+- **Actual:** Denied by the permission classifier again.
+- **Resolution:** Asked the user to run `sudo chown` themselves.
