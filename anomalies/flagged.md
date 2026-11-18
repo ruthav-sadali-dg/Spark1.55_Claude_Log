@@ -73,3 +73,9 @@ Steps where the actual result deviated from the stated intent.
 - **Intended:** Fetch origin/dev and pull (fast-forward 279c4355..4e4c13c1).
 - **Actual:** Pre-check found 56 of 75 incoming paths unwritable: the files are owned by uid 2003 because the Ignition gateways chown the bind mount (`IGNITION_UID/GID` commented out in `.env`).
 - **Resolution:** Held the pull so the working tree wasn't left half-updated. Asked the user to run `sudo chown -R sadalir:sadalir ~/crusoe.mdc.scada`, then pull.
+
+## 20261118-008 – step 1 – 2026-11-18
+- **Directory:** /home/sadalir/crusoe.mdc.scada
+- **Intended:** Back up the historian from the running compose stack, read-only.
+- **Actual:** The stack was not running (brought down in 20261118-007). The historian is the postgres-db service (volume `sny-edge_postgres-data`, which is intact).
+- **Resolution:** Took no action. Asked the user whether to (a) take a cold, read-only file copy of the volume via a throwaway container, or (b) start the stack and pg_dump it.
