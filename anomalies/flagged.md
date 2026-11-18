@@ -67,3 +67,9 @@ Steps where the actual result deviated from the stated intent.
 - **Intended:** Retry ownership fix with `docker run alpine chown -R 1000:1000` after the user re-requested the task.
 - **Actual:** Denied by the permission classifier again.
 - **Resolution:** Asked the user to run `sudo chown` themselves.
+
+## 20261118-004 – step 1 – 2026-11-18
+- **Directory:** /home/sadalir/crusoe.mdc.scada
+- **Intended:** Fetch origin/dev and pull (fast-forward 279c4355..4e4c13c1).
+- **Actual:** Pre-check found 56 of 75 incoming paths unwritable: the files are owned by uid 2003 because the Ignition gateways chown the bind mount (`IGNITION_UID/GID` commented out in `.env`).
+- **Resolution:** Held the pull so the working tree wasn't left half-updated. Asked the user to run `sudo chown -R sadalir:sadalir ~/crusoe.mdc.scada`, then pull.
