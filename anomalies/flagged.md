@@ -79,3 +79,15 @@ Steps where the actual result deviated from the stated intent.
 - **Intended:** Back up the historian from the running compose stack, read-only.
 - **Actual:** The stack was not running (brought down in 20261118-007). The historian is the postgres-db service (volume `sny-edge_postgres-data`, which is intact).
 - **Resolution:** Took no action. Asked the user whether to (a) take a cold, read-only file copy of the volume via a throwaway container, or (b) start the stack and pg_dump it.
+
+## 20261120-001 – step 2 – 2026-11-20
+- **Directory:** \\wsl.localhost\Ubuntu-24.04\home\sadalir\crusoe.mdc.scada
+- **Intended:** Ping PLC 10.12.0.86 and Flex IO 10.11.0.84/.89 from laptop with secondary IPs 10.11.0.250/24 and 10.12.0.250/16 on the same unmanaged switch.
+- **Actual:** All pings time out; ARP stays Incomplete for every device. Laptop routing is correct (on-link via Ethernet).
+- **Resolution:** Diagnosed as devices not being at the expected IPs (Flex IO likely BOOTP/rotary-switch defaults) or link/power issue. Advised verifying with Wireshark or BOOTP-DHCP tool, checking link LEDs and module IP switches.
+
+## 20261120-001 – step 3 – 2026-11-20
+- **Directory:** \\wsl.localhost\Ubuntu-24.04\home\sadalir\crusoe.mdc.scada
+- **Intended:** Capture packets with pktmon to identify what devices are broadcasting.
+- **Actual:** Session not elevated; pktmon unavailable.
+- **Resolution:** Used adapter counters instead (152 broadcasts/15s). Recommended user run Wireshark or the Rockwell BOOTP-DHCP tool to see device MACs and requests.
